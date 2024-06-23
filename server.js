@@ -12,9 +12,16 @@ app.use(cors());
 app.use(bodyParser.json());
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/urlshortener")
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+  })
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    console.error("Error connecting to MongoDB:", err);
+  });
 
 const Url = mongoose.model(
   "Url",

@@ -35,7 +35,7 @@ const Url = mongoose.model(
 
 app.post("/api/shorten", async (req, res) => {
   const { url } = req.body;
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = process.env.BASE_URL || "http://localhost:5000";
 
   console.log("Received URL:", url);
 
